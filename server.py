@@ -31,9 +31,10 @@ def new_visit():
 def new_message():
     if request.method == 'POST':
         message = {
-            "e-mail": request.form['e-mail'],
-            "title": request.form['title'],
-            "message": request.form['message'],
+            "Date" : str(date.today()),
+            "E-mail": request.form['e-mail'],
+            "Title": request.form['title'],
+            "Message": request.form['message'],
         }
         with open('server/messages.json', 'r+') as json_file:
             messages = json.load(json_file)
