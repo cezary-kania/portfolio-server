@@ -16,7 +16,7 @@ def new_visit():
 @cross_origin()
 @app.route('/get_visits', methods=['GET'])
 def get_visits():
-    if request.method == 'POST':
+    if request.method == 'GET':
         with open('appdata.json', 'r+') as json_file:
            appdata = json.load(json_file)
            return appdata
