@@ -7,16 +7,19 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @cross_origin()
-@app.route('/new_visit', methods=['GET','POST'])
+@app.route('/new_visit', methods=['POST'])
 def new_visit():
     if request.method == 'POST':
         todayCounter = Add_new_visit(request)
         return todayCounter
-    else
+
+@cross_origin()
+@app.route('/get_visits', methods=['GET'])
+def get_visits():
+    if request.method == 'POST':
         with open('appdata.json', 'r+') as json_file:
            appdata = json.load(json_file)
            return appdata
-
 @cross_origin()
 @app.route('/new_message', methods=['GET', 'POST'])
 def new_message():
