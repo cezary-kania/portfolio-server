@@ -56,4 +56,4 @@ def Add_new_visit(request) -> dict:
         return todayCounter
 
 if __name__ == "__main__":
-    app.run(port=1234,debug=True)
+    app.run(port=1234,debug=False)
