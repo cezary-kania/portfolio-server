@@ -14,9 +14,9 @@ class MessagesListResource(Resource):
         from Models.MessageModel import MessageModel
         from app import mail
         parser = reqparse.RequestParser()
-        parser.add_argument('e-mail', help = 'e-mail can\'t be blank', required = True, location = 'json')
-        parser.add_argument('title', help = 'title can\'t be blank', required = True, location = 'json')
-        parser.add_argument('message','message can\'t be blank', required = True, location = 'json')
+        parser.add_argument('e-mail', help = 'e-mail can\'t be blank', required = True, location = 'form')
+        parser.add_argument('title', help = 'title can\'t be blank', required = True, location = 'form')
+        parser.add_argument('message','message can\'t be blank', required = True, location = 'form')
         data = parser.parse_args()
         new_message = MessageModel(
             date = str(date.today()),
