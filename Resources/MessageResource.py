@@ -1,10 +1,6 @@
 from flask_restful import Resource, reqparse, fields, marshal, abort
 from flask_mail import Message 
-
-from Models.MessageModel import MessageModel
 from datetime import date
-from app import api, mail
-
 message_fields = {
     'Id' : fields.Integer(attribute='id'),
     'Date' : fields.String(attribute='date'),
@@ -13,8 +9,10 @@ message_fields = {
     'Message' : fields.String(attribute='message')
 }
 
-class MessagesListController(Resource):
+class MessagesListResource(Resource):
     def post(self):
+        from Models.MessageModel import MessageModel
+        from app import mail
         parser = reqparse.RequestParser()
         parser.add_argument('e-mail', help = 'e-mail can\'t be blank', required = True)
         parser.add_argument('title', help = 'title can\'t be blank', required = True)
@@ -34,22 +32,20 @@ class MessagesListController(Resource):
         except Exception as e:
             abort(500, message = f'message send error {str(e)}')
     def get(self):
+        from Models.MessageModel import MessageModel
         messages = MessageModel.get_all_messages()
         return marshal(messages, message_fields, envelope='Messages'), 200
 
-class MessageController(Resource):
+class MessageResource(Resource):
     def get(self, message_id):
+        from Models.MessageModel import MessageModel
         message = MessageModel.get_message(message_id)
         if message is None:
             abort(400, message='Invalid message id')
         return marshal(message, message_fields, envelope='Message'), 200
     def delete(self, message_id):
+        from Models.MessageModel import MessageModel
         message = MessageModel.delete_message(message_id)
         if message is None:
             abort(500, message='Error on deleting')
         return marshal(message, message_fields, envelope='Deleted message'), 200
-
-api.add_resource(MessagesListController, '/message')
-api.add_resource(MessageController, '/message/<int:message_id>')
-
-

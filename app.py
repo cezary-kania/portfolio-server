@@ -1,3 +1,4 @@
+import os 
 from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
@@ -15,11 +16,14 @@ mail = Mail(app)
 def create_tables():
     db.create_all()
 
-import Resources.MessageResource
-import Resources.VisitCtrResource
+from Resources.MessageResource import MessagesListResource, MessageResource
+api.add_resource(MessagesListResource, '/message')
+api.add_resource(MessageResource, '/message/<int:message_id>')
 
-#if __name__ == "__main__":
-#    app.run()
+from Resources.VisitCtrResource import VisitCtrListResource, VisitCtrResource
+api.add_resource(VisitCtrListResource, '/visits')
+api.add_resource(VisitCtrResource, '/visits/<int:visitsCtr_id>')
 
-# To run: 
-# $ FLASK_APP=app.py FLASK_DEBUG=1 flask run 
+
+if __name__ == "__main__":
+    app.run(debug=1, port=5000)
