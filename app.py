@@ -8,7 +8,7 @@ from flask_cors import CORS
 from config import DevConfig, ProdConfig
 
 app = Flask(__name__)
-app.config.from_object(DevConfig)
+app.config.from_object(ProdConfig)
 
 api = Api(app)
 cors = CORS(app, resources={r"/*" : {"origins":"*"}})
@@ -22,7 +22,6 @@ api.add_resource(MessageResource, '/message/<int:message_id>')
 from Resources.VisitCtrResource import VisitCtrListResource, VisitCtrResource
 api.add_resource(VisitCtrListResource, '/visits')
 api.add_resource(VisitCtrResource, '/visits/<int:visitsCtr_id>')
-
 
 if __name__ == "__main__":
     app.run()
