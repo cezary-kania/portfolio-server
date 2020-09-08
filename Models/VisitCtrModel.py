@@ -53,7 +53,7 @@ class VisitCtrModel(db.Model):
         return all_visits
     @staticmethod
     def register_visit():
-        today = dt.today()
+        today = str(dt.today())
         visits_ctr = VisitCtrModel.query.filter_by(date = today).first()
         if visits_ctr is None:
             visits_ctr = VisitCtrModel(date = today)

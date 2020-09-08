@@ -8,16 +8,12 @@ from flask_cors import CORS
 from config import DevConfig, ProdConfig
 
 app = Flask(__name__)
-app.config.from_object(ProdConfig)
+app.config.from_object(DevConfig)
 
 api = Api(app)
 cors = CORS(app, resources={r"/*" : {"origins":"*"}})
 db = SQLAlchemy(app)
 mail = Mail(app)
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 from Resources.MessageResource import MessagesListResource, MessageResource
 api.add_resource(MessagesListResource, '/message')
