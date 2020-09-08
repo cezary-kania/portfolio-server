@@ -17,7 +17,7 @@ class VisitCtrListResource(Resource):
         result = VisitCtrModel.register_visit()
         try:
             msg = VisitCtrModel.new_visit_msg()
-            mail.send(msg)
+            # mail.send(msg) SMTP NOT CONFIGURED JET
             pass
         except:
             pass

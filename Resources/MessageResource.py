@@ -27,7 +27,7 @@ class MessagesListResource(Resource):
         try:
             new_message.save_message()
             message = MessageModel.message_to_mailMSG(new_message)
-            mail.send(message)
+            # mail.send(message) SMTP NOT CONFIGURED JET
             return marshal(new_message, message_fields, envelope='Sent message'), 200
         except Exception as e:
             abort(500, message = f'message send error {str(e)}')
